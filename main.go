@@ -66,3 +66,7 @@ func adminAuthMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+func panicPage(w http.ResponseWriter, r *http.Request) {
+	panic("this must be recovered")
+}
