@@ -71,7 +71,7 @@ func panicPage(w http.ResponseWriter, r *http.Request) {
 	panic("this must be recovered")
 }
 
-func adminPage(w http.ResponseWriter, r *http.Request) {
+func adminIndex(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(w, `<a href="/">site index</a>`)
 	fmt.Println(w, "Admin main page")
 }
