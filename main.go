@@ -45,7 +45,7 @@ func accessLogMiddleware(next http.Handler) http.Handler {
 		fmt.Println("accessLogMiddleware", r.URL.Path)
 		start := time.Now()
 		next.ServeHTTP(w, r)
-		fmt.Println("[%s] %s, %s %s\n",
+		fmt.Printf("[%s] %s, %s %s\n",
 			r.Method, r.RemoteAddr, r.URL.Path, time.Since(start))
 	})
 }
