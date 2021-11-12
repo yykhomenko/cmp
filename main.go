@@ -22,7 +22,7 @@ func main() {
 	siteHandler = panicMiddleware(siteHandler)
 
 	fmt.Println("starting server at :8080")
-	http.ListenAndServe(":8080", siteMux)
+	http.ListenAndServe(":8080", siteHandler)
 }
 
 func panicMiddleware(next http.Handler) http.Handler {
