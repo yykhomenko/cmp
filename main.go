@@ -88,7 +88,7 @@ func loginPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func logoutPage(w http.ResponseWriter, r *http.Request) {
-	session, err := r.Cookie("sessiod_id")
+	session, err := r.Cookie("session_id")
 	if err == http.ErrNoCookie {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
