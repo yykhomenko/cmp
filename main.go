@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -23,9 +24,11 @@ func mainPage(c *gin.Context) {
 	session := sessions.Default(c)
 	id := session.Get("session_id")
 	if id == nil {
-		c.String(http.StatusOK, "You need to login %s", `<a href="/login">login</a>`)
+		c.Data(http.StatusOK, "text/html; charset=utf-8",
+			[]byte(`You need to login <a href="/login">login</a>`))
 	} else {
-		c.String(http.StatusOK, "Hello, %s %s", id, `<a href="/logout">logout</a>`)
+		c.Data(http.StatusOK, "text/html; charset=utf-8",
+			[]byte(fmt.Sprintf("Hello, %s %s", id, `<a href="/logout">logout</a>`)))
 	}
 }
 
