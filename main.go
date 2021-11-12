@@ -42,7 +42,7 @@ func panicMiddleware(next http.Handler) http.Handler {
 
 func accessLogMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("accessLogMiddleware")
+		fmt.Println("accessLogMiddleware", r.URL.Path)
 		start := time.Now()
 		next.ServeHTTP(w, r)
 		fmt.Println("[%s] %s, %s %s\n",
