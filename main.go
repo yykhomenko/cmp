@@ -8,4 +8,10 @@ func main() {
 	adminMux.HandleFunc("/admin/panic/", panicPage)
 	adminHandler := adminAuthMiddleware(adminMux)
 
+	siteMux := http.NewServeMux()
+	siteMux.Handle(adminHandler)
+	siteMux.HandleFunc("/login", loginPage)
+	siteMux.HandleFunc("/logout", logoutPage)
+	siteMux.HandleFunc("/", mainPage)
+
 }
