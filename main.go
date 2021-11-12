@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -17,14 +18,14 @@ func main() {
 	siteMux.HandleFunc("/logout", logoutPage)
 	siteMux.HandleFunc("/", mainPage)
 
-	siteHandler := accessLogHandler(siteMux)
-	siteHandler = panicHandler(siteHandler)
+	siteHandler := accessLogMiddleware(siteMux)
+	siteHandler = panicMiddleware(siteHandler)
 
 	fmt.Println("starting server at :8080")
 	http.ListenAndServe(":8080", siteHandler)
 }
 
-func panicHandler(next http.Handler) http.Handler {
+func panicMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("panic middleware", r.URL.Path)
 
@@ -36,5 +37,15 @@ func panicHandler(next http.Handler) http.Handler {
 		}()
 
 		next.ServeHTTP(w, r)
+	})
+}
+
+func accessLogMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("accessLogMiddleware")
+		start := time.Now()
+		next.ServeHTTP(w, r)
+		fmt.Println("[%s] %s, %s %s\n",
+			r.Method, r.RemoteAddr, r.URL.Path, time.Since(start))
 	})
 }
