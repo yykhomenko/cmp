@@ -49,3 +49,20 @@ func accessLogMiddleware(next http.Handler) http.Handler {
 			r.Method, r.RemoteAddr, r.URL.Path, time.Since(start))
 	})
 }
+
+func adminAuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("adminAuthMiddleware", r.URL.Path)
+
+		//! auth dummy
+		_, err := r.Cookie("session_id")
+		if err != nil {
+			fmt.Println("no auth at", r.URL.Path)
+			http.Redirect(w, r, "/", http.StatusFound)
+			return
+		}
+		//! end of auth dummy
+
+		next.ServeHTTP(w, r)
+	})
+}
