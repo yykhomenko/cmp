@@ -15,6 +15,7 @@ func main() {
 
 	r.GET("/", mainPage)
 	r.GET("/login", loginPage)
+	r.GET("/logout", logoutPage)
 	r.Run()
 }
 
@@ -24,13 +25,20 @@ func mainPage(c *gin.Context) {
 	if id == nil {
 		c.String(http.StatusOK, "You need to login %s", `<a href="/login">login</a>`)
 	} else {
-		c.String(http.StatusOK, "Hello, %s", id)
+		c.String(http.StatusOK, "Hello, %s %s", id, `<a href="/logout">logout</a>`)
 	}
 }
 
 func loginPage(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Set("session_id", "yykhomenko")
+	session.Save()
+	c.Redirect(http.StatusFound, "/")
+}
+
+func logoutPage(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Clear()
 	session.Save()
 	c.Redirect(http.StatusFound, "/")
 }
