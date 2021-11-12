@@ -22,7 +22,7 @@ func main() {
 	siteHandler = panicMiddleware(siteHandler)
 
 	fmt.Println("starting server at :8080")
-	http.ListenAndServe(":8080", siteHandler)
+	http.ListenAndServe(":8080", siteMux)
 }
 
 func panicMiddleware(next http.Handler) http.Handler {
@@ -72,8 +72,8 @@ func panicPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func adminIndex(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(w, `<a href="/">site index</a>`)
-	fmt.Println(w, "Admin main page")
+	fmt.Fprintln(w, `<a href="/">site index</a>`)
+	fmt.Fprintln(w, "Admin main page")
 }
 
 func loginPage(w http.ResponseWriter, r *http.Request) {
@@ -106,10 +106,10 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 	//! end of auth dummy
 
 	if loggedIn {
-		fmt.Println(w, `<a href="/logout">logout</a>`)
-		fmt.Println(w, "Welcome, "+session.Value)
+		fmt.Fprintln(w, `<a href="/logout">logout</a>`)
+		fmt.Fprintln(w, "Welcome, "+session.Value)
 	} else {
-		fmt.Println(w, `<a href="/login">login</a>`)
-		fmt.Println(w, "You need to login")
+		fmt.Fprintln(w, `<a href="/login">login</a>`)
+		fmt.Fprintln(w, "You need to login")
 	}
 }
