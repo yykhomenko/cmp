@@ -13,7 +13,7 @@ func main() {
 	adminHandler := adminAuthMiddleware(adminMux)
 
 	siteMux := http.NewServeMux()
-	siteMux.Handle(adminHandler)
+	siteMux.Handle("/admin/", adminHandler)
 	siteMux.HandleFunc("/login", loginPage)
 	siteMux.HandleFunc("/logout", logoutPage)
 	siteMux.HandleFunc("/", mainPage)
