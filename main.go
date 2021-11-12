@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 func main() {
 	adminMux := http.NewServeMux()
@@ -14,4 +17,9 @@ func main() {
 	siteMux.HandleFunc("/logout", logoutPage)
 	siteMux.HandleFunc("/", mainPage)
 
+	siteHandler := accessLogHandler(siteMux)
+	siteHandler = panicHandler(siteHandler)
+
+	fmt.Println("starting server at :8080")
+	http.ListenAndServe(":8080", siteHandler)
 }
