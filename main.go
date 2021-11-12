@@ -75,3 +75,14 @@ func adminIndex(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(w, `<a href="/">site index</a>`)
 	fmt.Println(w, "Admin main page")
 }
+
+func loginPage(w http.ResponseWriter, r *http.Request) {
+	expiration := time.Now().Add(10 * time.Hour)
+	cookie := http.Cookie{
+		Name:    "session_id",
+		Value:   "yykhomenko",
+		Expires: expiration,
+	}
+	http.SetCookie(w, &cookie)
+	http.Redirect(w, r, "/", http.StatusFound)
+}
