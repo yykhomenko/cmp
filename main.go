@@ -97,3 +97,19 @@ func logoutPage(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, session)
 	http.Redirect(w, r, "/", http.StatusFound)
 }
+
+func mainPage(w http.ResponseWriter, r *http.Request) {
+	session, err := r.Cookie("session_id")
+
+	//! auth dummy
+	loggedIn := (err != http.ErrNoCookie)
+	//! end of auth dummy
+
+	if loggedIn {
+		fmt.Println(w, `<a href="/logout">logout</a>`)
+		fmt.Println(w, "Welcome, "+session.Value)
+	} else {
+		fmt.Println(w, `<a href="/login">login</a>`)
+		fmt.Println(w, "You need to login")
+	}
+}
