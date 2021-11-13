@@ -4,6 +4,7 @@ import "github.com/yykhomenko/cmp/entity"
 
 type UserRepository interface {
 	Get(login string) entity.User
+	Set(entity.User)
 }
 
 type database struct {
@@ -24,4 +25,8 @@ func NewUserRepository() UserRepository {
 
 func (db *database) Get(login string) entity.User {
 	return db.data[login]
+}
+
+func (db *database) Set(user entity.User) {
+	db.data[user.Login] = user
 }
