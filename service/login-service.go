@@ -18,5 +18,5 @@ func NewLoginService(userRepo repository.UserRepository) LoginService {
 
 func (ls *loginService) LoginUser(login string, password string) bool {
 	user := ls.userRepo.Get(login)
-	return user.Password == password
+	return user.Login == login && user.Password == password
 }
