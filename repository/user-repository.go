@@ -12,14 +12,8 @@ type database struct {
 }
 
 func NewUserRepository() UserRepository {
-	testUser := entity.User{
-		Login:    "yykhomenko",
-		Password: "123",
-	}
-	data := make(map[string]entity.User)
-	data[testUser.Login] = testUser
 	return &database{
-		data: data,
+		data: make(map[string]entity.User),
 	}
 }
 
