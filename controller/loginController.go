@@ -15,7 +15,7 @@ type loginController struct {
 	jwtService   service.JWTService
 }
 
-func NewLoginHandler(loginService service.LoginService,
+func NewLoginController(loginService service.LoginService,
 	jwtService service.JWTService) LoginController {
 
 	return &loginController{
