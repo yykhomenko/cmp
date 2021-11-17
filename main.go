@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/yykhomenko/cmp/controller"
+	"github.com/yykhomenko/cmp/middleware"
 	"github.com/yykhomenko/cmp/repository"
 	"github.com/yykhomenko/cmp/service"
 )
@@ -16,6 +17,7 @@ func main() {
 	loginController := controller.NewLoginController(loginService, jwtService)
 
 	r := gin.Default()
+	r.Use(middleware.AutorizeJWT())
 	r.POST("/login", func(c *gin.Context) {
 		token := loginController.Login(c)
 		if token != "" {
