@@ -4,25 +4,26 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/yykhomenko/cmp/controller"
+	"github.com/yykhomenko/cmp/repository"
+	"github.com/yykhomenko/cmp/service"
 )
 
 func main() {
+	userRepository := repository.NewUserRepository()
+	loginService := service.NewLoginService(userRepository)
+	jwtService := service.NewJWTService()
+	loginController := controller.NewLoginController(loginService, jwtService)
+
 	r := gin.Default()
+	r.POST("/login", func(c *gin.Context) {
+		token := loginController.Login(c)
+		if token != "" {
+			c.JSON(http.StatusOK, gin.H{"token": token})
+		} else {
+			c.JSON(http.StatusUnauthorized, nil)
+		}
+	})
 
-	r.GET("/", mainPage)
-	r.GET("/login", loginPage)
-	r.GET("/logout", logoutPage)
 	r.Run()
-}
-
-func mainPage(c *gin.Context) {
-
-}
-
-func loginPage(c *gin.Context) {
-	c.Redirect(http.StatusFound, "/")
-}
-
-func logoutPage(c *gin.Context) {
-	c.Redirect(http.StatusFound, "/")
 }
