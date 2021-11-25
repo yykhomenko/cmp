@@ -4,11 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/yykhomenko/cmp/controller"
-	"github.com/yykhomenko/cmp/entity"
-	"github.com/yykhomenko/cmp/middleware"
-	"github.com/yykhomenko/cmp/repository"
-	"github.com/yykhomenko/cmp/service"
+	"github.com/yykhomenko/cmp/internal/controller"
+	"github.com/yykhomenko/cmp/internal/entity"
+	"github.com/yykhomenko/cmp/internal/middleware"
+	"github.com/yykhomenko/cmp/internal/repository"
+	"github.com/yykhomenko/cmp/internal/service"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/yykhomenko/cmp/entity"
+import "github.com/yykhomenko/cmp/internal/entity"
 
 type UserRepository interface {
 	Get(login string) entity.User

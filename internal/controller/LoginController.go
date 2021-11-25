@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/yykhomenko/cmp/entity"
-	"github.com/yykhomenko/cmp/service"
+	"github.com/yykhomenko/cmp/internal/entity"
+	"github.com/yykhomenko/cmp/internal/service"
 )
 
 type LoginController interface {

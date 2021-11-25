@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yykhomenko/cmp/entity"
-	"github.com/yykhomenko/cmp/repository"
+	"github.com/yykhomenko/cmp/internal/entity"
+	"github.com/yykhomenko/cmp/internal/repository"
 )
 
 func TestLoginUser(t *testing.T) {

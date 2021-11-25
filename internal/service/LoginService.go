@@ -1,6 +1,6 @@
 package service
 
-import "github.com/yykhomenko/cmp/repository"
+import "github.com/yykhomenko/cmp/internal/repository"
 
 type LoginService interface {
 	LoginUser(login string, password string) bool

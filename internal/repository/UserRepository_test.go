@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yykhomenko/cmp/entity"
+	"github.com/yykhomenko/cmp/internal/entity"
 )
 
 func TestSetGet(t *testing.T) {
