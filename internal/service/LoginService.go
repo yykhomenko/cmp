@@ -7,16 +7,16 @@ type LoginService interface {
 }
 
 type loginService struct {
-	userRepo repository.UserRepository
+	userRepository repository.UserRepository
 }
 
-func NewLoginService(userRepo repository.UserRepository) LoginService {
+func NewLoginService(userRepository repository.UserRepository) LoginService {
 	return &loginService{
-		userRepo: userRepo,
+		userRepository: userRepository,
 	}
 }
 
 func (ls *loginService) LoginUser(login string, password string) bool {
-	user := ls.userRepo.Get(login)
+	user := ls.userRepository.Get(login)
 	return user.Login == login && user.Password == password
 }

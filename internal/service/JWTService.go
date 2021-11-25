@@ -39,31 +39,31 @@ func getSecretKey() string {
 	return secret
 }
 
-func (service *jwtService) GenerateToken(email string, isUser bool) string {
+func (js *jwtService) GenerateToken(email string, isUser bool) string {
 	claims := &authCustomClaims{
 		email,
 		isUser,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 48).Unix(),
-			Issuer:    service.issure,
+			Issuer:    js.issure,
 			IssuedAt:  time.Now().Unix(),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	t, err := token.SignedString([]byte(service.secretKey))
+	t, err := token.SignedString([]byte(js.secretKey))
 	if err != nil {
 		panic(err)
 	}
 	return t
 }
 
-func (service *jwtService) ValidateToken(encodedToken string) (*jwt.Token, error) {
+func (js *jwtService) ValidateToken(encodedToken string) (*jwt.Token, error) {
 	return jwt.Parse(encodedToken, func(token *jwt.Token) (interface{}, error) {
 		if _, isvalid := token.Method.(*jwt.SigningMethodHMAC); !isvalid {
 			return nil, fmt.Errorf("invalid token %v", token.Header["alg"])
 
 		}
-		return []byte(service.secretKey), nil
+		return []byte(js.secretKey), nil
 	})
 }

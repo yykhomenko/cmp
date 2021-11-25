@@ -7,20 +7,20 @@ type UserRepository interface {
 	Set(entity.User)
 }
 
-type database struct {
+type userRepository struct {
 	data map[string]entity.User
 }
 
 func NewUserRepository() UserRepository {
-	return &database{
+	return &userRepository{
 		data: make(map[string]entity.User),
 	}
 }
 
-func (db *database) Get(login string) entity.User {
-	return db.data[login]
+func (ur *userRepository) Get(login string) entity.User {
+	return ur.data[login]
 }
 
-func (db *database) Set(user entity.User) {
-	db.data[user.Login] = user
+func (ur *userRepository) Set(user entity.User) {
+	ur.data[user.Login] = user
 }

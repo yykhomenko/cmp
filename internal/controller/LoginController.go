@@ -24,18 +24,18 @@ func NewLoginController(loginService service.LoginService,
 	}
 }
 
-func (controller *loginController) Login(ctx *gin.Context) string {
+func (lc *loginController) Login(ctx *gin.Context) string {
 	var credential entity.LoginCredentials
 	err := ctx.ShouldBind(&credential)
 	if err != nil {
 		return "no data found"
 	}
 
-	isUserAuthentificated := controller.loginService.
+	isUserAuthentificated := lc.loginService.
 		LoginUser(credential.Email, credential.Password)
 
 	if isUserAuthentificated {
-		return controller.jwtService.
+		return lc.jwtService.
 			GenerateToken(credential.Email, true)
 	}
 
